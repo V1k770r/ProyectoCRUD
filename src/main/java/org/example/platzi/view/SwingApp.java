@@ -83,7 +83,7 @@ public class SwingApp extends JFrame {
             model.addColumn("Apellido Materno");
             model.addColumn("Email");
             model.addColumn("Salario");
-            
+
             for (Employee employee : employees) {
                 Object[] rowData = {
                         employee.getId(),
@@ -99,7 +99,8 @@ public class SwingApp extends JFrame {
             // Establecer el modelo de tabla actualizado
             employeeTable.setModel(model);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener los empleados de la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al obtener los empleados de la base de datos",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(e);
         }
     }
@@ -120,7 +121,8 @@ public class SwingApp extends JFrame {
                 "Salario:", salarioField
         };
 
-        int result = JOptionPane.showConfirmDialog(this, fields, "Agregar Empleado", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(this, fields, "Agregar Empleado",
+                JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
             // Crear un nuevo objeto Employee con los datos ingresados
@@ -137,13 +139,15 @@ public class SwingApp extends JFrame {
             // Actualizar la tabla con los empleados actualizados
             refreshEmployeeTable();
 
-            JOptionPane.showMessageDialog(this, "Empleado agregado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Empleado agregado correctamente",
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private void actualizarEmpleado() {
         // Obtener el ID del empleado a actualizar
-        String empleadoIdStr = JOptionPane.showInputDialog(this, "Ingrese el ID del empleado a actualizar:", "Actualizar Empleado", JOptionPane.QUESTION_MESSAGE);
+        String empleadoIdStr = JOptionPane.showInputDialog(this,
+                "Ingrese el ID del empleado a actualizar:", "Actualizar Empleado", JOptionPane.QUESTION_MESSAGE);
         if (empleadoIdStr != null) {
             try {
                 int empleadoId = Integer.parseInt(empleadoIdStr);
@@ -167,7 +171,8 @@ public class SwingApp extends JFrame {
                             "Salario:", salarioField
                     };
 
-                    int confirmResult = JOptionPane.showConfirmDialog(this, fields, "Actualizar Empleado", JOptionPane.OK_CANCEL_OPTION);
+                    int confirmResult = JOptionPane.showConfirmDialog(this, fields,
+                            "Actualizar Empleado", JOptionPane.OK_CANCEL_OPTION);
                     if (confirmResult == JOptionPane.OK_OPTION) {
                         // Actualizar los datos del empleado con los valores ingresados en el formulario
                         empleado.setFirst_name(nombreField.getText());
@@ -183,25 +188,30 @@ public class SwingApp extends JFrame {
                         refreshEmployeeTable();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se encontró ningún empleado con el ID especificado", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "No se encontró ningún empleado con el ID especificado",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para el ID", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para el ID",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Error al obtener los datos del empleado de la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al obtener los datos del empleado de la base de datos",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     private void eliminarEmpleado() {
         // Obtener el ID del empleado a eliminar
-        String empleadoIdStr = JOptionPane.showInputDialog(this, "Ingrese el ID del empleado a eliminar:", "Eliminar Empleado", JOptionPane.QUESTION_MESSAGE);
+        String empleadoIdStr = JOptionPane.showInputDialog(this, "Ingrese el ID del empleado a eliminar:",
+                "Eliminar Empleado", JOptionPane.QUESTION_MESSAGE);
         if (empleadoIdStr != null) {
             try {
                 int empleadoId = Integer.parseInt(empleadoIdStr);
 
                 // Confirmar la eliminación del empleado
-                int confirmResult = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el empleado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+                int confirmResult = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el empleado?",
+                        "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
                 if (confirmResult == JOptionPane.YES_OPTION) {
                     // Eliminar el empleado de la base de datos
                     employeeRepository.delete(empleadoId);
@@ -210,7 +220,8 @@ public class SwingApp extends JFrame {
                     refreshEmployeeTable();
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para el ID del empleado", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para el ID del empleado",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
