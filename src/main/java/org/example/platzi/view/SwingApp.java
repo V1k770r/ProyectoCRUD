@@ -5,6 +5,7 @@ import org.example.platzi.repository.EmployeeRepository;
 import org.example.platzi.repository.Repository;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public class SwingApp extends JFrame {
         setTitle("Gestión de Empleados");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 230);
+        centrarVentana();
 
         // Crear una tabla para mostrar los empleados
         employeeTable = new JTable();
@@ -29,12 +31,14 @@ public class SwingApp extends JFrame {
         JButton agregarButton = new JButton("Agregar");
         JButton actualizarButton = new JButton("Actualizar");
         JButton eliminarButton = new JButton("Eliminar");
+        JButton salirButton = new JButton("Salir");
 
         // Configurar el panel de botones
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(agregarButton);
         buttonPanel.add(actualizarButton);
         buttonPanel.add(eliminarButton);
+        buttonPanel.add(salirButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Establecer estilos para los botones
@@ -49,6 +53,10 @@ public class SwingApp extends JFrame {
         eliminarButton.setBackground(new Color(231, 76, 60));
         eliminarButton.setForeground(Color.WHITE);
         eliminarButton.setFocusPainted(false);
+
+        salirButton.setBackground(new Color(0,0,0));
+        salirButton.setForeground(Color.WHITE);
+        salirButton.setFocusPainted(false);
 
         // Crear el objeto Repository para acceder a la base de datos
         employeeRepository = new EmployeeRepository();
@@ -68,6 +76,26 @@ public class SwingApp extends JFrame {
         actualizarButton.addActionListener(e -> actualizarEmpleado());
 
         eliminarButton.addActionListener(e -> eliminarEmpleado());
+
+        salirButton.addActionListener(e -> salirSistema());
+
+        //Centro los datos dentro de la tabla
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < employeeTable.getColumnCount(); i++) {
+            employeeTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+    }
+
+    //metodo para centrar la ventana
+    private void centrarVentana(){
+        //Metodo para centrar ventana
+        Dimension tamañoVentana = getSize();
+        Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (tamañoPantalla.width - tamañoVentana.width) / 2;
+        int y = (tamañoPantalla.height - tamañoVentana.height) /2;
+        setLocation(x,y);
     }
 
     private void refreshEmployeeTable() {
@@ -83,6 +111,7 @@ public class SwingApp extends JFrame {
             model.addColumn("Apellido Materno");
             model.addColumn("Email");
             model.addColumn("Salario");
+            model.addColumn("Curp");
 
             for (Employee employee : employees) {
                 Object[] rowData = {
@@ -91,7 +120,8 @@ public class SwingApp extends JFrame {
                         employee.getPa_surname(),
                         employee.getMa_surname(),
                         employee.getEmail(),
-                        employee.getSalary()
+                        employee.getSalary(),
+                        employee.getCurp()
                 };
                 model.addRow(rowData);
             }
@@ -112,13 +142,15 @@ public class SwingApp extends JFrame {
         JTextField maternoField = new JTextField();
         JTextField emailField = new JTextField();
         JTextField salarioField = new JTextField();
+        JTextField curpField = new JTextField();
 
         Object[] fields = {
                 "Nombre:", nombreField,
                 "Apellido Paterno:", paternoField,
                 "Apellido Materno:", maternoField,
                 "Email:", emailField,
-                "Salario:", salarioField
+                "Salario:", salarioField,
+                "Curp:", curpField
         };
 
         int result = JOptionPane.showConfirmDialog(this, fields, "Agregar Empleado",
@@ -132,6 +164,7 @@ public class SwingApp extends JFrame {
             employee.setMa_surname(maternoField.getText());
             employee.setEmail(emailField.getText());
             employee.setSalary(Float.parseFloat(salarioField.getText()));
+            employee.setCurp(String.valueOf((curpField.getText())));
 
             // Guardar el nuevo empleado en la base de datos
             employeeRepository.save(employee);
@@ -162,13 +195,15 @@ public class SwingApp extends JFrame {
                     JTextField apellidoMaternoField = new JTextField(empleado.getMa_surname());
                     JTextField emailField = new JTextField(empleado.getEmail());
                     JTextField salarioField = new JTextField(String.valueOf(empleado.getSalary()));
+                    JTextField curpField = new JTextField(String.valueOf(empleado.getCurp()));
 
                     Object[] fields = {
                             "Nombre:", nombreField,
                             "Apellido Paterno:", apellidoPaternoField,
                             "Apellido Materno:", apellidoMaternoField,
                             "Email:", emailField,
-                            "Salario:", salarioField
+                            "Salario:", salarioField,
+                            "Curp:", curpField
                     };
 
                     int confirmResult = JOptionPane.showConfirmDialog(this, fields,
@@ -180,6 +215,7 @@ public class SwingApp extends JFrame {
                         empleado.setMa_surname(apellidoMaternoField.getText());
                         empleado.setEmail(emailField.getText());
                         empleado.setSalary(Float.parseFloat(salarioField.getText()));
+                        empleado.setCurp(String.valueOf((curpField.getText())));
 
                         // Guardar los cambios en la base de datos
                         employeeRepository.save(empleado);
@@ -225,6 +261,16 @@ public class SwingApp extends JFrame {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    private void salirSistema() {
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres cerrar la aplicación?",
+                "Confirmar Cierre", JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Cerrar la aplicación
+            System.exit(0);
         }
     }
 }
