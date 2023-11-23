@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
+
 public class SwingApp extends JFrame {
 
     private final Repository<Employee> employeeRepository;
@@ -88,7 +89,7 @@ public class SwingApp extends JFrame {
 
     }
 
-    //metodo para centrar la ventana
+    //metodo para centrar la ventana de la aplicacion
     private void centrarVentana(){
         //Metodo para centrar ventana
         Dimension tamañoVentana = getSize();
