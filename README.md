@@ -1,9 +1,9 @@
 # Bienvenido al proyectoCRUD
 
 <p align="center">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdWmNI5xiFmF6EzCDuLBsUnImcy6F8ItnGMA&usqp=CAU">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3mWjhHJakstP5769mOXj-VtMbWEsVQH-EzgZCxFkN43-p7L71R613mcKdOC6Qo0WdBjk&usqp=CAU">
-    <img  src="https://github.com/V1k770r/Challenge-One-Hotel/blob/master/Inicio.png" width="450" height="350">
+    <img src="https://github.com/V1k770r/ProyectoCRUD/blob/dev/empleados.jpg" width="400" height="350">
+    <img src="https://github.com/V1k770r/ProyectoCRUD/blob/dev/ImgInicio1.png">
+    <img  src="https://github.com/V1k770r/ProyectoCRUD/blob/dev/ImgInicio2.png" width="450" height="350">
 </p>
 
 <p  align="center">
@@ -19,7 +19,7 @@
 ## 📖 Caracteristicas del proyecto
 
 `La presente aplicación desarrollada refleja el uso de Java Swing, que es la biblioteca gráfica de java. Asi como la utilizacion de la POO caracterÍstico de Java, la aplicacion esta conectada a una base de datos relacional MySQL, 
-  esto con ayuda del uso de Java Persistencia API (JPA). La aplicacion fue desarrollada con la finalidad utilizar las funciones basicas de un CRUD: create, read, update y delete. La aplicacion permite el registro de la informacion 
+  esto con ayuda del uso del API JDBC (Java DataBase Conectivity). La aplicacion fue desarrollada con la finalidad utilizar las funciones basicas de un CRUD: create, read, update y delete. La aplicacion permite el registro de la informacion 
   de clientes como ID, NOMBRE, APELLIDOS, EMAIL, SALARIO y CURP.`
 
 ## :hammer: Funcionalidades del proyecto
